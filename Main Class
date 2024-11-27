@@ -1,0 +1,33 @@
+import java.util.logging.Logger;
+
+public class Main {
+    private static final Logger logger = Logger.getLogger(Main.class.getName());
+
+    public static void main(String[] args) {
+        // Create a parking lot
+        ParkingLot parkingLot = new ParkingLot("PL001", "City Center Parking");
+
+        // Add floors and slots
+        ParkingFloor floor1 = new ParkingFloor("Floor1");
+        floor1.addSlot(new ParkingSlot("Slot1", SlotType.COMPACT));
+        floor1.addSlot(new ParkingSlot("Slot2", SlotType.LARGE));
+        parkingLot.addFloor(floor1);
+
+        // Create a parking manager
+        ParkingManager manager = new ParkingManager(parkingLot, new DefaultSlotAssignmentStrategy());
+
+        // Park a vehicle
+        Vehicle car = new Vehicle("ABC123", VehicleType.CAR);
+        ParkingSlot slot = manager.issueTicket(car);
+
+        if (slot != null) {
+            logger.info("Vehicle parked at slot: " + slot.getId());
+        } else {
+            logger.warning("No slot available for vehicle.");
+        }
+
+        // Release a slot
+        manager.releaseSlot(slot);
+        logger.info("Slot released: " + slot.getId());
+    }
+}
