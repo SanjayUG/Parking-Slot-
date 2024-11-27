@@ -1,0 +1,21 @@
+class ParkingManager {
+    private final ParkingLot parkingLot;
+    private final SlotAssignmentStrategy slotAssignmentStrategy;
+
+    public ParkingManager(ParkingLot parkingLot, SlotAssignmentStrategy slotAssignmentStrategy) {
+        this.parkingLot = parkingLot;
+        this.slotAssignmentStrategy = slotAssignmentStrategy;
+    }
+
+    public ParkingSlot issueTicket(Vehicle vehicle) {
+        ParkingSlot slot = slotAssignmentStrategy.assignSlot(vehicle.getType(), parkingLot);
+        if (slot != null) {
+            slot.reserveSlot();
+        }
+        return slot;
+    }
+
+    public void releaseSlot(ParkingSlot slot) {
+        parkingLot.releaseSlot(slot);
+    }
+}
