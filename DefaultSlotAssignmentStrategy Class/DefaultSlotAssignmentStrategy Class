@@ -1,0 +1,27 @@
+class DefaultSlotAssignmentStrategy implements SlotAssignmentStrategy {
+
+    @Override
+    public ParkingSlot assignSlot(VehicleType vehicleType, ParkingLot parkingLot) {
+        SlotType requiredType = getSlotTypeForVehicle(vehicleType);
+        for (ParkingFloor floor : parkingLot.getFloors()) {
+            ParkingSlot slot = floor.findAvailableSlot(requiredType);
+            if (slot != null) {
+                return slot;
+            }
+        }
+        return null; // No available slot
+    }
+
+    private SlotType getSlotTypeForVehicle(VehicleType vehicleType) {
+        switch (vehicleType) {
+            case CAR:
+                return SlotType.COMPACT;
+            case BIKE:
+                return SlotType.HANDICAPPED; // Example
+            case TRUCK:
+                return SlotType.LARGE;
+            default:
+                throw new IllegalArgumentException("Unknown Vehicle Type");
+        }
+    }
+}
