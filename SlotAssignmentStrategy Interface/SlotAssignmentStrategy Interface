@@ -1,0 +1,3 @@
+interface SlotAssignmentStrategy {
+    ParkingSlot assignSlot(VehicleType vehicleType, ParkingLot parkingLot);
+}
