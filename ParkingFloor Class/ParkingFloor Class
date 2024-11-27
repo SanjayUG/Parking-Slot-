@@ -1,0 +1,33 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class ParkingFloor {
+    private final String id;
+    private final Map<String, ParkingSlot> slots; // Slot ID -> Slot
+
+    public ParkingFloor(String id) {
+        this.id = id;
+        this.slots = new HashMap<>();
+    }
+
+    public void addSlot(ParkingSlot slot) {
+        slots.put(slot.getId(), slot);
+    }
+
+    public ParkingSlot findAvailableSlot(SlotType type) {
+        for (ParkingSlot slot : slots.values()) {
+            if (slot.isAvailable() && slot.getType() == type) {
+                return slot;
+            }
+        }
+        return null;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Map<String, ParkingSlot> getSlots() {
+        return slots;
+    }
+}
