@@ -1,0 +1,31 @@
+class ParkingSlot {
+    private final String id;
+    private final SlotType type;
+    private boolean isAvailable;
+
+    public ParkingSlot(String id, SlotType type) {
+        this.id = id;
+        this.type = type;
+        this.isAvailable = true;
+    }
+
+    public boolean isAvailable() {
+        return isAvailable;
+    }
+
+    public void reserveSlot() {
+        isAvailable = false;
+    }
+
+    public void freeSlot() {
+        isAvailable = true;
+    }
+
+    public SlotType getType() {
+        return type;
+    }
+
+    public String getId() {
+        return id;
+    }
+}
